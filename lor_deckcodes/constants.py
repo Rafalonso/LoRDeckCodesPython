@@ -1,3 +1,4 @@
+FORMAT_VERSION = 17
 faction_mapping = {
     0: 'DE',
     1: 'FR',
