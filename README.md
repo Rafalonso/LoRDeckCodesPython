@@ -5,10 +5,8 @@
 python >=3.5 required
 pip >= 19.0.0
 ```
-pip install git+https://github.com/RiotGames/LoRDeckCodes/#subdirectory=LoRDeckCodesPython
+pip install lor-deckcodes
 ```
-todo:
-Add package to pypi
 
 ## Usage
 
