@@ -4,7 +4,7 @@ from io import BytesIO
 from typing import List
 
 from lor_deckcodes.utils import write_varint
-from lor_deckcodes.constants import FORMAT_VERSION, faction_mapping
+from lor_deckcodes.constants import CURRENT_FORMAT_VERSION, faction_mapping
 
 
 def _encode_card_block(data_stream: BytesIO, cards: List[object]) -> None:
@@ -26,7 +26,7 @@ def _encode_card_block(data_stream: BytesIO, cards: List[object]) -> None:
 
 def encode_deck(cards: List[object]) -> str:
     data = BytesIO()
-    write_varint(data, FORMAT_VERSION)
+    write_varint(data, CURRENT_FORMAT_VERSION)
 
     # 3 card copies
     three_copies = list(filter(lambda x: x.count == 3, cards))
