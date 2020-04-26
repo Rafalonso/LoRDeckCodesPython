@@ -3,7 +3,7 @@ from typing import List
 
 
 from lor_deckcodes.utils import next_varint, decode_base32
-from lor_deckcodes.constants import faction_mapping, FORMAT_VERSION
+from lor_deckcodes.constants import faction_mapping, CURRENT_FORMAT_VERSION, SUPPORTED_VERSIONS
 
 
 def _decode_card_block(n: int, data_stream: BytesIO) -> List[str]:
@@ -22,7 +22,7 @@ def decode_deck(deckcode: str):
     all_cards = []
     decoded = decode_base32(deckcode)
     data = BytesIO(decoded)
-    if next_varint(data) != FORMAT_VERSION:
+    if next_varint(data) not in SUPPORTED_VERSIONS:
         raise ValueError("Version/Format not supported.")
 
     # 3 card copies
