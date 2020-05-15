@@ -1,22 +1,27 @@
 from itertools import product
 from base64 import b32encode
 from io import BytesIO
-from typing import List
+from typing import TYPE_CHECKING, List
 
 from lor_deckcodes.utils import write_varint
 from lor_deckcodes.constants import CURRENT_FORMAT_VERSION, faction_mapping
 
+if TYPE_CHECKING:
+    from lor_deckcodes import CardCodeAndCount
 
-def _encode_card_block(data_stream: BytesIO, cards: List[object]) -> None:
+
+def _encode_card_block(data_stream: BytesIO, cards: List["CardCodeAndCount"]) -> None:
     set_faction_combinations = list(product(
         set([card.set for card in cards]),
         set([card.faction for card in cards])))
     write_varint(data_stream, len(set_faction_combinations))
 
-    set_faction_combinations = sorted(set_faction_combinations,
-                                      key=lambda l: len([card for card in cards if card.faction == l[1]]))
+    set_faction_combinations = sorted(
+        set_faction_combinations,
+        key=lambda l: len([card for card in cards if card.faction == l[1]]),
+    )
     for card_set, faction in set_faction_combinations:
-        faction_cards = [card for card in cards if card.faction == faction]
+        faction_cards = [card for card in cards if card.faction == faction and card_set == card.set]
         write_varint(data_stream, len(faction_cards))
         write_varint(data_stream, card_set)
         write_varint(data_stream, faction_mapping.get(faction))
@@ -24,7 +29,7 @@ def _encode_card_block(data_stream: BytesIO, cards: List[object]) -> None:
             write_varint(data_stream, faction_card.card_id)
 
 
-def encode_deck(cards: List[object]) -> str:
+def encode_deck(cards: List["CardCodeAndCount"]) -> str:
     data = BytesIO()
     write_varint(data, CURRENT_FORMAT_VERSION)
 

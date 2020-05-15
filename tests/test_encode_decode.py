@@ -27,3 +27,15 @@ class TestDeckcodeEncode(BaseTestDeckcode):
             encoded_string = card_list.encode()
             decoded_string = LoRDeck.from_deckcode(encoded_string)
             self.assertListEqual(sorted(list(decoded_string)), sorted(list(card_list)))
+
+
+class TestMixedSetFaction(TestCase):
+    def test_issue_3(self):
+        lor_cards = ['3:01NX020', '3:01NX012', '3:01NX040', '3:01NX015', '3:01NX030', '3:01PZ054',
+                     '3:01NX037', '3:02NX004', '3:01PZ017', '1:01NX047', '3:01PZ052', '3:02NX003',
+                     '3:01PZ039', '3:01NX002']
+        deck = LoRDeck(lor_cards)
+        deckstring = deck.encode()
+        deck = LoRDeck.from_deckcode(deckstring)
+
+        self.assertListEqual(sorted(lor_cards), sorted(list(deck)))
