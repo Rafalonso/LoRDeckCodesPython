@@ -1,5 +1,5 @@
-CURRENT_FORMAT_VERSION = 18
-SUPPORTED_VERSIONS = (17, 18)
+CURRENT_FORMAT_VERSION = 19
+SUPPORTED_VERSIONS = (17, 18, 19)
 faction_mapping = {
     0: 'DE',
     1: 'FR',
@@ -8,6 +8,7 @@ faction_mapping = {
     4: 'PZ',
     5: 'SI',
     6: 'BW',
+    9: 'MT',
     'DE': 0,
     'FR': 1,
     'IO': 2,
@@ -15,4 +16,5 @@ faction_mapping = {
     'PZ': 4,
     'SI': 5,
     'BW': 6,
+    'MT': 9,
 }
