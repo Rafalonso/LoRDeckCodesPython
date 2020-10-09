@@ -1,4 +1,3 @@
-from itertools import product
 from base64 import b32encode
 from io import BytesIO
 from typing import TYPE_CHECKING, List
@@ -10,16 +9,19 @@ if TYPE_CHECKING:
     from lor_deckcodes import CardCodeAndCount
 
 
+def _get_set_faction_combinations(cards: List["CardCodeAndCount"]):
+    set_faction_combinations = []
+    sets = sorted(set([card.set for card in cards]))
+    for card_set in sets:
+        factions = sorted(set([card.faction for card in cards if card.set == card_set]))
+        [set_faction_combinations.append((card_set, faction)) for faction in factions]
+    return set_faction_combinations
+
+
 def _encode_card_block(data_stream: BytesIO, cards: List["CardCodeAndCount"]) -> None:
-    set_faction_combinations = list(product(
-        set([card.set for card in cards]),
-        set([card.faction for card in cards])))
+    set_faction_combinations = _get_set_faction_combinations(cards)
     write_varint(data_stream, len(set_faction_combinations))
 
-    set_faction_combinations = sorted(
-        set_faction_combinations,
-        key=lambda l: len([card for card in cards if card.faction == l[1]]),
-    )
     for card_set, faction in set_faction_combinations:
         faction_cards = [card for card in cards if card.faction == faction and card_set == card.set]
         write_varint(data_stream, len(faction_cards))
