@@ -18,6 +18,14 @@ def _decode_card_block(n: int, data_stream: BytesIO) -> List[str]:
     return card_block_list
 
 
+def _decode_card_block_(data_stream: BytesIO) -> List[str]:
+    n_card_copies = next_varint(data_stream)
+    set_number = next_varint(data_stream)
+    faction = next_varint(data_stream)
+    num = next_varint(data_stream)
+    return [f'{n_card_copies}:{set_number:02}{faction_mapping.get(faction)}{num:03}']
+
+
 def decode_deck(deckcode: str):
     all_cards = []
     decoded = decode_base32(deckcode)
@@ -27,10 +35,23 @@ def decode_deck(deckcode: str):
 
     # 3 card copies
     all_cards.extend(_decode_card_block(3, data))
+
     # 2 card copies
     all_cards.extend(_decode_card_block(2, data))
+
     # 1 card copies
     all_cards.extend(_decode_card_block(1, data))
+
+    # more cards
+    n = data.tell()
+    c = data.read(1)
+    data.seek(n)
+    while c:
+        all_cards.extend(_decode_card_block_(data))
+        n = data.tell()
+        c = data.read(1)
+        data.seek(n)
+
     return all_cards
 
 
