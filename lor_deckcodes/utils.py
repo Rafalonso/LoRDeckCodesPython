@@ -8,7 +8,7 @@ def next_varint(stream: IO) -> int:
     result = 0
     while True:
         c = stream.read(1)
-        if c == "":
+        if c == b"" or c == "":
             raise EOFError("Unexpected EOF while reading varint")
         i = ord(c)
         result |= (i & 0x7f) << shift

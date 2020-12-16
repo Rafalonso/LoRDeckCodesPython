@@ -49,7 +49,21 @@ class TestOrderSetFaction(TestCase):
         deck = LoRDeck(lor_cards)
         deckstring = deck.encode()
         deck = LoRDeck.from_deckcode(deckstring)
-        ordered_list = ['3:01FR003', '3:01FR012', '3:01FR020', '3:01FR033', '3:01FR036',
-                        '3:01FR039', '3:01FR052', '3:01SI015', '3:01SI044', '3:01SI048',
-                        '3:01SI054', '3:02FR024', '2:01FR004', '2:01SI005']
+        ordered_list = ['3:02FR024', '3:01SI015', '3:01SI044', '3:01SI048', '3:01SI054',
+                        '3:01FR003', '3:01FR012', '3:01FR020', '3:01FR033', '3:01FR036',
+                        '3:01FR039', '3:01FR052', '2:01FR004', '2:01SI005']
+        self.assertListEqual(list(deck), ordered_list)
+
+
+class TestMoreThan3Cards(TestCase):
+    def test_more_than_3_order(self):
+        lor_cards = ['3:01SI015', '3:01SI044', '3:01SI048', '3:01SI054', '3:01FR003', '3:01FR012',
+                     '3:01FR020', '3:02FR024', '3:01FR033', '3:01FR036', '3:01FR039', '3:01FR052',
+                     '2:01FR004', '4:01SI005']
+        deck = LoRDeck(lor_cards)
+        deckstring = deck.encode()
+        deck = LoRDeck.from_deckcode(deckstring)
+        ordered_list = ['3:02FR024', '3:01SI015', '3:01SI044', '3:01SI048', '3:01SI054',
+                        '3:01FR003', '3:01FR012', '3:01FR020', '3:01FR033', '3:01FR036',
+                        '3:01FR039', '3:01FR052', '2:01FR004', '4:01SI005']
         self.assertListEqual(list(deck), ordered_list)
