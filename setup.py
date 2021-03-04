@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='lor_deckcodes',
-    version='1.2.1',
+    version='3.0.0',
     url='https://github.com/Rafalonso/LoRDeckCodesPython',
     description='Legends of Runeterra deck coder and decoder',
     long_description=open('README.md', 'r', encoding='utf-8').read(),
