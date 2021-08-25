@@ -18,7 +18,7 @@ class BaseTestDeckcode(TestCase):
 class TestDeckcodeDecode(BaseTestDeckcode):
     def test_data_decode(self):
         for deckcode, card_list in self.decks.items():
-            self.assertListEqual(list(LoRDeck.from_deckcode(deckcode)), list(card_list))
+            self.assertCountEqual(list(LoRDeck.from_deckcode(deckcode)), list(card_list))
 
 
 class TestDeckcodeEncode(BaseTestDeckcode):
