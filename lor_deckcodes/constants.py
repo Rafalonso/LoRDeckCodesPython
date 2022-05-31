@@ -11,6 +11,7 @@ faction_mapping = {
     7: 'SH',
     9: 'MT',
     10: 'BC',
+    11: 'RU',
     'DE': 0,
     'FR': 1,
     'IO': 2,
@@ -20,5 +21,6 @@ faction_mapping = {
     'BW': 6,
     'SH': 7,
     'MT': 9,
-    'BC': 10
+    'BC': 10,
+    'RU': 11
 }
