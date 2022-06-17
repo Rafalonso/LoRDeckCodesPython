@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='lor_deckcodes',
-    version='4.0.0',
+    version='5.0.0',
     url='https://github.com/Rafalonso/LoRDeckCodesPython',
     description='Legends of Runeterra deck coder and decoder',
     long_description=open('README.md', 'r', encoding='utf-8').read(),
@@ -23,6 +23,8 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         "License :: OSI Approved :: MIT License",
     ],
     python_requires='>=3.5',
